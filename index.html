@@ -560,10 +560,11 @@ $('back').onclick=()=>{$('result').classList.remove('on');$('input').style.displ
   window.scrollTo({top:0});};
 function toast(m){const t=$('toast');t.textContent=m;t.classList.add('on');
   clearTimeout(window.__tt);window.__tt=setTimeout(()=>t.classList.remove('on'),2200);}
-$('cta1').onclick=()=>toast('실제 배포 시: 한 달 무료 신청(파트너 링크)으로 이동합니다');
-$('cta2').onclick=()=>toast('실제 배포 시: 카카오톡 상담으로 연결됩니다');
+$('cta1').onclick=()=>{location.href=KAKAO_URL;};
+$('cta2').onclick=()=>{location.href=KAKAO_URL;};
 // ==== 공유 이미지 카드 (Canvas, 외부 의존 없음) ====
-const DIAG_URL='keepgrow.com/진단';   // TODO: 배포 도메인으로 교체
+const DIAG_URL='wjddytpq27.github.io/keepgrow-jindan';   // 배포 주소(커스텀 도메인 생기면 교체)
+const KAKAO_URL='https://pf.kakao.com/_fVBgT/chat';       // 킵그로우 카톡 상담
 const CARD_FONT="'Pretendard','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif";
 function rrect(x,X,Y,W,H,R){x.beginPath();x.moveTo(X+R,Y);x.arcTo(X+W,Y,X+W,Y+H,R);
   x.arcTo(X+W,Y+H,X,Y+H,R);x.arcTo(X,Y+H,X,Y,R);x.arcTo(X,Y,X+W,Y,R);x.closePath();}

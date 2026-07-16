@@ -286,6 +286,12 @@
   .srcb{flex:none;font-size:10px;font-weight:800;padding:3px 7px;border-radius:6px}
   .srcb.m{background:var(--measured-bg);color:var(--measured)}
   .srcb.e{background:var(--est-bg);color:var(--est)}
+  .srcfold{margin:18px 22px 0}
+  .srcfold summary{font-size:12px;font-weight:700;color:var(--ink-faint);cursor:pointer;list-style:none}
+  .srcfold summary::-webkit-details-marker{display:none}
+  .srcfold summary::before{content:'▸ '}
+  .srcfold[open] summary::before{content:'▾ '}
+  .srcfold .sources{margin:12px 0 0}
   .disc{margin:16px 22px 0;font-size:11px;color:var(--ink-faint);line-height:1.6;font-weight:500}
   .foot{padding:22px;text-align:center;font-size:11px;color:var(--ink-faint)}
   .toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(20px);background:var(--ink);
@@ -379,11 +385,11 @@
 
     <div class="loss" id="scenario">
       <div class="cap">⚠️ 이 손님들, 지금 다시 부를 수 있나요?</div>
-      <div class="exp">매달 <b>약 <span id="scHost">0</span>명</b>이 사가고도 <b>이름도 연락처도 안 남기고</b> 사라져요. 나중에 재구매를 유도하려 해도 <b>보낼 곳이 없죠.</b> 온라인에서 결제하려던 고객 <b>4명 중 1명은 '회원가입 강요' 때문에 떠난다</b>는 조사도 있어요(Baymard, 글로벌).</div>
+      <div class="exp"><b><span id="scHost">0</span>명</b>이 이름도 없이 사라져 <b>다시 부를 곳이 없어요.</b> (결제 고객 <b>4명 중 1명</b>은 '회원가입 강요' 때문에 이탈 — Baymard, 글로벌)</div>
       <details class="calc">
         <summary><span>이 숫자는 어떻게 나왔나요?</span><span>+</span></summary>
         <div class="body">
-          <code>월 구매 고객 수 × (100% − 회원가입 비율)</code>. 입력하신 값으로 계산한 <b>회원으로 안 남은 손님 수</b>예요. 비회원 구매는 이름·연락처가 배송용으로만 쓰여, 나중에 마케팅으로 다시 부를 수 없어요.
+          <code>월 구매 고객 수 × (100% − 회원가입 비율)</code> = 회원으로 안 남은 손님 수. 비회원은 이름·연락처가 배송용으로만 쓰여 나중에 다시 부를 수 없어요.
         </div>
       </details>
     </div>
@@ -422,7 +428,7 @@
         <div class="gb"><div class="gk">중간 규모 몰</div><div class="gv">+207명</div><div class="gn">+14% · N=99</div></div>
         <div class="gb"><div class="gk">채널 큰 몰</div><div class="gv">+1,862명</div><div class="gn">+6% · N=82</div></div>
       </div>
-      <div class="note">흩어지던 신규 손님이 <b>카카오 채널 친구로 남아</b> 재구매·재방문의 기반이 됩니다. 위 수치는 1초 도입 369곳에서 <b>관측된 실측 변화</b>이며(규모=도입 시점 채널 친구 수 기준), 대조군이 없어 자연 증가분이 포함될 수 있어요. <b>내 몰의 실제 증가는 무료 체험으로 직접 확인하세요.</b></div>
+      <div class="note">1초 도입 369곳에서 <b>관측된 실측 변화</b>예요(규모=채널 친구 수 기준). <b>내 몰 증가는 무료 체험으로 직접 확인하세요.</b></div>
     </div>
 
     <div class="promise">
@@ -442,12 +448,13 @@
     <button class="subcta" id="cta2">궁금한 건 카톡으로 물어보기</button>
     <button class="share" id="share">📷 결과 이미지 저장 · 공유하기</button>
 
+    <details class="srcfold"><summary>데이터 출처·근거 보기</summary>
     <div class="sources">
       <div class="src"><span class="srcb m">실측</span><span>카카오 채널 친구 증가는 1초 회원가입 도입 자사몰 369곳의 실제 데이터(도입 후 3개월, 중앙값 +214명·91.6% 증가)입니다. 규모 구분은 도입 시점 채널 친구 수 기준이며, 대조군이 없어 자연 증가분이 포함될 수 있어 '도입 자사몰에서 관측된 변화'로 봐 주세요.</span></div>
       <div class="src"><span class="srcb m">실측</span><span>업종별 '자사몰 N곳·친구 중앙값'은 1초 회원가입을 쓰는 자사몰의 현재 카카오 채널 누적 친구 수 실측이에요(업종=온보딩 시 선택값). 소수 대형몰이 평균을 부풀리므로 '절반이 이상'인 중앙값으로 표기했고, 도입 효과가 아니라 '쓰는 몰들의 현황'입니다.</span></div>
       <div class="src"><span class="srcb m">실측</span><span>'회원가입 강요 때문에 결제 고객 4명 중 1명(24~28%)이 이탈'은 Baymard Institute의 장바구니 이탈 조사(글로벌)예요. 한국 자사몰만의 회원가입률 공개 통계는 없어, 사라지는 손님 수는 입력하신 값으로만 계산했습니다.</span></div>
       <div class="src"><span class="srcb e">입력</span><span>'사라지는 손님 수'는 입력하신 월 구매 고객 수 × (100% − 회원가입 비율)로 계산한 값이에요. 체감 입력이라 실제와 다를 수 있으니 참고 기준으로 봐 주세요.</span></div>
-    </div>
+    </div></details>
     <p class="disc" id="disc">본 진단은 입력하신 값과 동종 규모대 벤치마크에 기반한 추정치이며, 실제 성과와 다를 수 있습니다. 투자·수익을 보장하지 않으며 참고 목적의 자료입니다.</p>
     <div class="foot">© 킵그로우 · 유니드컴즈</div>
   </section>
@@ -461,17 +468,17 @@
 // 재구매율 = "2회 이상 구매 비율"(Metrilo/Bluecore DTC 실측)로 정의 통일.
 // pn=같은 업종 1초 도입 ACTIVE 몰 수, pm=그 몰들의 카카오 친구수 중앙값(실측, company_info.business_category+profile_kakao_plusfriend). digital=데이터0→전체폴백.
 const CATS=[
- {k:'fashion',l:'패션·의류',   ar:.15,cv:2.0,rp:26,conf:'중', pn:655,pm:2457},
- {k:'beauty', l:'뷰티·화장품', ar:.18,cv:3.0,rp:26,conf:'중', pn:484,pm:2305},
- {k:'food',   l:'식품·건강식품',ar:.14,cv:3.0,rp:26,conf:'중', pn:380,pm:2238},
- {k:'living', l:'리빙·가구',   ar:.11,cv:1.0,rp:15,conf:'중', pn:249,pm:2636},
- {k:'kids',   l:'유아·키즈',   ar:.12,cv:4.5,rp:25,conf:'하', pn:54, pm:8950},
- {k:'pet',    l:'반려·펫',     ar:.12,cv:3.2,rp:31,conf:'중', pn:72, pm:3347},
+ {k:'fashion',l:'패션·의류',   ar:.15,cv:2.0,rp:26,conf:'중', pn:789,pm:2457},
+ {k:'beauty', l:'뷰티·화장품', ar:.18,cv:3.0,rp:26,conf:'중', pn:585,pm:2304},
+ {k:'food',   l:'식품·건강식품',ar:.14,cv:3.0,rp:26,conf:'중', pn:441,pm:2227},
+ {k:'living', l:'리빙·가구',   ar:.11,cv:1.0,rp:15,conf:'중', pn:317,pm:2636},
+ {k:'kids',   l:'유아·키즈',   ar:.12,cv:4.5,rp:25,conf:'하', pn:66, pm:8949},
+ {k:'pet',    l:'반려·펫',     ar:.12,cv:3.2,rp:31,conf:'중', pn:90, pm:3346},
  {k:'digital',l:'디지털·가전', ar:.09,cv:2.0,rp:17,conf:'하', pn:0,  pm:0},
- {k:'hobby',  l:'취미·잡화·문구',ar:.12,cv:2.5,rp:21,conf:'하', pn:186,pm:3516},
- {k:'etc',    l:'기타',        ar:.14,cv:2.0,rp:28,conf:'상', pn:215,pm:1979},
+ {k:'hobby',  l:'취미·잡화·문구',ar:.12,cv:2.5,rp:21,conf:'하', pn:233,pm:3515},
+ {k:'etc',    l:'기타',        ar:.14,cv:2.0,rp:28,conf:'상', pn:257,pm:1979},
 ];
-const PEER_ALL={n:2307, pm:2660}, TOTAL_MALLS=3448;   // 업종 폴백 & 전체 1초 도입 몰 수(실측)
+const PEER_ALL={n:2306, pm:2660}, TOTAL_MALLS=3444;   // 업종 폴백 & 전체 1초 도입 몰 수(실측)
 const CUST_MIN=10, CUST_MAX=5000;   // 월 구매 고객 수 범위
 const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
 const expMap=(t,mn,mx)=>mn*Math.pow(mx/mn,t);        // t:0..1
@@ -531,19 +538,19 @@ function toResult(){
   // 시나리오 = 사라지는 비회원 수
   countUp($('scHost'), d.lost);
   // 진단 문장 (진단↔상품 연결)
-  $('diag').innerHTML=`구매까지 온 손님인데 <b>회원이 안 되니</b>, 남의 것도 내 것도 아닌 채 사라져요. 가입 절차가 길수록 더 많이 빠져나가죠. 진짜 자산은 <b>'다시 부를 수 있는 내 고객'</b>이에요.`;
+  $('diag').innerHTML=`구매까지 온 손님인데 <b>회원이 안 되니</b> 다시 부를 수가 없어요. 진짜 자산은 <b>'다시 부를 수 있는 내 고객'</b>인데 말이죠.`;
   // 같은 업종 실측 소셜프루프 (company_info.business_category+친구수 중앙값). digital=데이터0→전체 폴백.
   const floor100=v=>Math.floor(v/100)*100, pc=$('peer').querySelector('.pc');
   if(sel.pn>0){
     const med=floor100(sel.pm);
-    pc.innerHTML=`같은 <b>${sel.l}</b> 업종에서 1초 회원가입 쓰는 자사몰 <b>${sel.pn.toLocaleString()}곳</b>은 지금`;
+    pc.innerHTML=`같은 <b>${sel.l}</b> 업종 자사몰들은 지금`;
     $('pMed').textContent=med.toLocaleString();
-    $('pSub').innerHTML=`이 <b>${sel.pn.toLocaleString()}곳 중 절반</b>이 카카오 친구 ${med.toLocaleString()}명 이상 (중앙값·현재 누적 친구 수)${sel.pn<80?' · 표본 적어 참고용':''}. 광고 없이 <b>언제든 다시 부를 수 있는 내 고객</b>이에요.`;
+    $('pSub').innerHTML=`1초 도입 <b>${sel.pn.toLocaleString()}곳</b> 절반이 이 이상 (중앙값·누적 친구 수)${sel.pn<80?' · 표본 적음':''}`;
   }else{
     const med=floor100(PEER_ALL.pm);
-    pc.innerHTML=`1초 회원가입 쓰는 자사몰 <b>${TOTAL_MALLS.toLocaleString()}곳+</b>은 지금`;
+    pc.innerHTML=`1초 회원가입 쓰는 자사몰들은 지금`;
     $('pMed').textContent=med.toLocaleString();
-    $('pSub').innerHTML=`도입 자사몰 절반이 카카오 친구 ${med.toLocaleString()}명 이상 (중앙값·현재 누적 친구 수). 광고 없이 <b>언제든 다시 부를 수 있는 내 고객</b>이에요.`;
+    $('pSub').innerHTML=`도입 <b>${TOTAL_MALLS.toLocaleString()}곳+</b> 절반이 이 이상 (중앙값·누적 친구 수)`;
   }
   $('disc').textContent='본 진단은 입력하신 값에 기반한 추정이며 실제와 다를 수 있습니다. 사라지는 손님 수는 입력하신 구매 고객 수와 회원가입 비율로 계산한 값이에요. 투자·수익을 보장하지 않으며 참고 목적의 자료입니다.';
   window.__card={ cat: sel.l, lost: d.lost, memPct, lostPct, risk, stage: stg[0], tone: stg[1] };

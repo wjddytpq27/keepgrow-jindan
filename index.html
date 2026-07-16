@@ -273,6 +273,12 @@
   .srcb{flex:none;font-size:10px;font-weight:800;padding:3px 7px;border-radius:6px}
   .srcb.m{background:var(--measured-bg);color:var(--measured)}
   .srcb.e{background:var(--est-bg);color:var(--est)}
+  .srcfold{margin:18px 22px 0}
+  .srcfold summary{font-size:12px;font-weight:700;color:var(--ink-faint);cursor:pointer;list-style:none}
+  .srcfold summary::-webkit-details-marker{display:none}
+  .srcfold summary::before{content:'▸ '}
+  .srcfold[open] summary::before{content:'▾ '}
+  .srcfold .sources{margin:12px 0 0}
   .disc{margin:16px 22px 0;font-size:11px;color:var(--ink-faint);line-height:1.6;font-weight:500}
   .foot{padding:22px;text-align:center;font-size:11px;color:var(--ink-faint)}
   .toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(20px);background:var(--ink);
@@ -366,7 +372,6 @@
         <div class="avg" id="avgMk" style="left:50%"></div>
         <div class="avgtip" id="avgTip" style="left:50%">동종평균 13%</div>
       </div>
-      <div class="row" style="margin:0;color:var(--ink-faint);font-size:12px"><span>매출 대비 광고비가 동종 평균보다 높을수록, 신규를 붙잡지 못하고 광고로 계속 다시 사오는 상태예요.</span></div>
     </div>
 
     <div class="bench">
@@ -376,13 +381,11 @@
     <div class="confnote" id="confNote">이 업종은 국내 공개 표본이 얇아, 인접 업종 기준의 <b>참고 밴드</b>로 표시했어요. 자사 데이터가 쌓이면 우선 보정 대상입니다.</div>
 
     <div class="loss" id="lossBad">
-      <div class="cap">이 돈이 왜 새냐면</div>
-      <div class="exp">같은 업종·규모 자사몰은 광고비율 <b><span id="lossRb">15</span>%</b>면 충분한데, 당신은 그보다 더 쓰고 있어요. 광고로 데려온 신규가 <b>한 번 사고 사라지니</b>, 매출을 유지하려면 계속 광고를 태워야 하는 구조예요. 신규를 <b>회원으로 남겨</b> 재구매를 붙이면 이 초과 지출이 줄어요.</div>
+      <div class="cap">동종 평균 광고비율은 <b><span id="lossRb">15</span>%</b> · 당신은 더 씁니다</div>
       <details class="calc">
         <summary><span>이 숫자는 어떻게 나왔나요?</span><span>+</span></summary>
         <div class="body">
-          <code>월 광고비 − (월 매출 × 동종평균 광고비율)</code>. 동종 평균만큼만 광고를 써도 되는데 그보다 더 쓰고 있는 <b>초과분</b>이에요. 입력하신 값과 벤치마크로 바로 계산돼요.<br><br>
-          <span style="color:var(--est)">※ 동종평균 광고비율은 아래 '추정' 근거를 따르며, 개별 몰의 마진·전략은 반영되지 않은 <b>추정치</b>입니다.</span>
+          <code>월 광고비 − (월 매출 × 동종평균 광고비율)</code> = 동종 평균보다 더 쓰는 <b>초과분</b>. 입력값으로 계산돼요. 광고비율은 '추정' 근거 기반이라 개별 몰 마진·전략은 반영 안 됩니다.
         </div>
       </details>
     </div>
@@ -426,7 +429,7 @@
         <div class="gb"><div class="gk">중간 규모 몰</div><div class="gv">+207명</div><div class="gn">+14% · N=99</div></div>
         <div class="gb"><div class="gk">채널 큰 몰</div><div class="gv">+1,862명</div><div class="gn">+6% · N=82</div></div>
       </div>
-      <div class="note">흩어지던 신규 손님이 <b>카카오 채널 친구로 남아</b> 재구매·재방문의 기반이 됩니다. 위 수치는 1초 도입 369곳에서 <b>관측된 실측 변화</b>이며(규모=도입 시점 채널 친구 수 기준), 대조군이 없어 자연 증가분이 포함될 수 있어요. <b>내 몰의 실제 증가는 무료 체험으로 직접 확인하세요.</b></div>
+      <div class="note">1초 도입 369곳에서 <b>관측된 실측 변화</b>예요(규모=채널 친구 수 기준). <b>내 몰 증가는 무료 체험으로 직접 확인하세요.</b></div>
     </div>
 
     <div class="promise">
@@ -446,12 +449,13 @@
     <button class="subcta" id="cta2">궁금한 건 카톡으로 물어보기</button>
     <button class="share" id="share">📷 결과 이미지 저장 · 공유하기</button>
 
+    <details class="srcfold"><summary>데이터 출처·근거 보기</summary>
     <div class="sources">
       <div class="src"><span class="srcb m">실측</span><span>카카오 채널 친구 증가는 1초 회원가입 도입 자사몰 369곳의 실제 데이터(도입 후 3개월, 중앙값 +214명·91.6% 증가)입니다. 규모 구분은 도입 시점 채널 친구 수 기준이며, 대조군이 없어 자연 증가분이 포함될 수 있어 '도입 자사몰에서 관측된 변화'로 봐 주세요.</span></div>
       <div class="src"><span class="srcb m">실측</span><span>업종별 '자사몰 N곳·친구 중앙값'은 1초 회원가입을 쓰는 자사몰의 현재 카카오 채널 누적 친구 수 실측이에요(업종=온보딩 시 선택값). 소수 대형몰이 평균을 부풀리므로 '절반이 이상'인 중앙값으로 표기했고, 도입 효과가 아니라 '쓰는 몰들의 현황'입니다.</span></div>
       <div class="src"><span class="srcb m">실측</span><span>구매 전환율은 국내 자사몰 100곳 실측(빅인사이트, 2021 전체 2.06%) 기준이에요.</span></div>
       <div class="src"><span class="srcb e">추정</span><span>여기서 '광고비율'은 자사몰이 신규 확보에 쓰는 광고비÷매출 개념이에요. 국내엔 이 소비재 업종별 수치를 주는 공식자료가 없어(KOBACO는 매체사 조사·제일기획은 절대금액만), 글로벌 D2C 실측(Gartner·Eightx)으로 수준을 잡고 <b>한국은행 기업경영분석</b>(국가통계, 화장품·제약 상위)으로 업종 순위를 교차했어요. 절대치보다 <b>업종 간 상대 기준</b>으로 봐 주세요.</span></div>
-    </div>
+    </div></details>
     <p class="disc" id="disc">본 진단은 입력하신 값과 동종 규모대 벤치마크에 기반한 추정치이며, 실제 성과와 다를 수 있습니다. 투자·수익을 보장하지 않으며 참고 목적의 자료입니다.</p>
     <div class="foot">© 킵그로우 · 유니드컴즈</div>
   </section>
@@ -465,17 +469,17 @@
 // 재구매율 = "2회 이상 구매 비율"(Metrilo/Bluecore DTC 실측)로 정의 통일.
 // pn=같은 업종 1초 도입 ACTIVE 몰 수, pm=그 몰들의 카카오 친구수 중앙값(실측, company_info.business_category+profile_kakao_plusfriend). digital=데이터0→전체폴백.
 const CATS=[
- {k:'fashion',l:'패션·의류',   ar:.15,cv:2.0,rp:26,conf:'중', pn:655,pm:2457},
- {k:'beauty', l:'뷰티·화장품', ar:.18,cv:3.0,rp:26,conf:'중', pn:484,pm:2305},
- {k:'food',   l:'식품·건강식품',ar:.14,cv:3.0,rp:26,conf:'중', pn:380,pm:2238},
- {k:'living', l:'리빙·가구',   ar:.11,cv:1.0,rp:15,conf:'중', pn:249,pm:2636},
- {k:'kids',   l:'유아·키즈',   ar:.12,cv:4.5,rp:25,conf:'하', pn:54, pm:8950},
- {k:'pet',    l:'반려·펫',     ar:.12,cv:3.2,rp:31,conf:'중', pn:72, pm:3347},
+ {k:'fashion',l:'패션·의류',   ar:.15,cv:2.0,rp:26,conf:'중', pn:789,pm:2457},
+ {k:'beauty', l:'뷰티·화장품', ar:.18,cv:3.0,rp:26,conf:'중', pn:585,pm:2304},
+ {k:'food',   l:'식품·건강식품',ar:.14,cv:3.0,rp:26,conf:'중', pn:441,pm:2227},
+ {k:'living', l:'리빙·가구',   ar:.11,cv:1.0,rp:15,conf:'중', pn:317,pm:2636},
+ {k:'kids',   l:'유아·키즈',   ar:.12,cv:4.5,rp:25,conf:'하', pn:66, pm:8949},
+ {k:'pet',    l:'반려·펫',     ar:.12,cv:3.2,rp:31,conf:'중', pn:90, pm:3346},
  {k:'digital',l:'디지털·가전', ar:.09,cv:2.0,rp:17,conf:'하', pn:0,  pm:0},
- {k:'hobby',  l:'취미·잡화·문구',ar:.12,cv:2.5,rp:21,conf:'하', pn:186,pm:3516},
- {k:'etc',    l:'기타',        ar:.14,cv:2.0,rp:28,conf:'상', pn:215,pm:1979},
+ {k:'hobby',  l:'취미·잡화·문구',ar:.12,cv:2.5,rp:21,conf:'하', pn:233,pm:3515},
+ {k:'etc',    l:'기타',        ar:.14,cv:2.0,rp:28,conf:'상', pn:257,pm:1979},
 ];
-const PEER_ALL={n:2307, pm:2660}, TOTAL_MALLS=3448;   // 업종 폴백 & 전체 1초 도입 몰 수(실측)
+const PEER_ALL={n:2306, pm:2660}, TOTAL_MALLS=3444;   // 업종 폴백 & 전체 1초 도입 몰 수(실측)
 const REV_MIN=3_000_000, REV_MAX=500_000_000;
 const AD_MIN=100_000,  AD_MAX=150_000_000;
 const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
@@ -564,22 +568,22 @@ function toResult(){
   $('lossBad').style.display = good ? 'none' : 'block';
   $('lossGood').style.display = good ? 'block' : 'none';
   if(!good){ $('lossRb').textContent=(d.rb*100).toFixed(0); }
-  // 진단 문장 (진단↔상품 연결)
+  // 진단 문장 — 한 줄로
   $('diag').innerHTML= good
-    ? `다만 신규의 상당수는 여전히 <b>비회원으로 한 번 사고 사라져요.</b> 이들을 회원으로 남기면 재구매가 붙어 광고 의존을 더 낮출 수 있어요.`
-    : `광고로 데려온 신규가 <b>회원으로 남지 않으니</b> 재구매가 붙지 않고, 그만큼 <b>광고를 또 태워야</b> 하는 구조예요. 새는 지점은 대부분 <b>'가입 문턱'</b>에 있어요.`;
-  // 같은 업종 실측 소셜프루프 (company_info.business_category+친구수 중앙값). digital=데이터0→전체 폴백.
+    ? `신규 상당수가 <b>비회원으로 사고 사라져요.</b> 회원으로 남기면 재구매가 붙어요.`
+    : `광고로 온 신규가 <b>회원으로 안 남아</b> 재구매가 없고, 그래서 <b>매번 광고로 다시 사와야</b> 해요.`;
+  // 같은 업종 실측 소셜프루프 — 중앙값을 앞세우고 카운트는 보조로(작게)
   const floor100=v=>Math.floor(v/100)*100, pc=$('peer').querySelector('.pc');
   if(sel.pn>0){
     const med=floor100(sel.pm);
-    pc.innerHTML=`같은 <b>${sel.l}</b> 업종에서 1초 회원가입 쓰는 자사몰 <b>${sel.pn.toLocaleString()}곳</b>은 지금`;
+    pc.innerHTML=`같은 <b>${sel.l}</b> 업종 자사몰들은 지금`;
     $('pMed').textContent=med.toLocaleString();
-    $('pSub').innerHTML=`이 <b>${sel.pn.toLocaleString()}곳 중 절반</b>이 카카오 친구 ${med.toLocaleString()}명 이상 (중앙값·현재 누적 친구 수)${sel.pn<80?' · 표본 적어 참고용':''}. 광고 없이도 다시 부를 수 있는 <b>내 고객</b>이에요.`;
+    $('pSub').innerHTML=`1초 도입 <b>${sel.pn.toLocaleString()}곳</b> 절반이 이 이상 (중앙값·누적 친구 수)${sel.pn<80?' · 표본 적음':''}`;
   }else{
     const med=floor100(PEER_ALL.pm);
-    pc.innerHTML=`1초 회원가입 쓰는 자사몰 <b>${TOTAL_MALLS.toLocaleString()}곳+</b>은 지금`;
+    pc.innerHTML=`1초 회원가입 쓰는 자사몰들은 지금`;
     $('pMed').textContent=med.toLocaleString();
-    $('pSub').innerHTML=`도입 자사몰 절반이 카카오 친구 ${med.toLocaleString()}명 이상 (중앙값·현재 누적 친구 수). 광고 없이도 다시 부를 수 있는 <b>내 고객</b>이에요.`;
+    $('pSub').innerHTML=`도입 <b>${TOTAL_MALLS.toLocaleString()}곳+</b> 절반이 이 이상 (중앙값·누적 친구 수)`;
   }
   // 표본 얇은 구간 안내
   const rev=d.rev;

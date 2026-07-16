@@ -144,6 +144,11 @@
   .verdict .big.warn{color:var(--alert)}
   .verdict .big.good{color:var(--green-deep)}
   .verdict .cap{font-size:13px;color:var(--ink-soft);margin-top:8px;font-weight:500}
+  .verdict .stage{display:inline-block;font-size:12.5px;font-weight:800;padding:6px 13px;border-radius:20px;
+    margin-bottom:10px;letter-spacing:-.02em}
+  .verdict .stage.bad{background:var(--alert);color:#fff}
+  .verdict .stage.mid{background:var(--alert-soft);color:var(--alert-deep)}
+  .verdict .stage.good{background:var(--green-soft);color:var(--green-deep)}
 
   .rankwrap{margin:20px 22px 0}
   .rankbar{height:38px;border-radius:12px;position:relative;overflow:hidden;
@@ -341,6 +346,7 @@
     <div class="rtop">
       <button class="back" id="back">‹ 다시 진단</button>
       <div class="verdict">
+        <div class="stage bad" id="rstage">효율 개선 필요</div>
         <div class="lbl" id="rlbl">같은 업종 · 비슷한 매출대에서 내 광고 효율은</div>
         <div class="big warn" id="rbig">하위 29%</div>
         <div class="cap" id="rcap">광고비는 많이 쓰는데, 남는 손님은 적은 편이에요.</div>
@@ -516,6 +522,9 @@ function toResult(){
   const good=d.excess<=0;   // 효율: 광고비가 동종평균 이하(초과 지출 없음)
   // verdict — 헷갈리던 '상위 P%' 제거, 돈(초과/절약 광고비) 중심 손실회피 프레이밍
   const excessMan=niceMan(Math.abs(d.excess));
+  // 결과 등급(공유 페이로드) — 광고비율/동종평균 비로 단계 구분
+  const stg = d.ratio>1.5?['광고 의존 高위험','bad'] : d.ratio>1.0?['효율 개선 필요','mid'] : ['광고 효율 양호','good'];
+  $('rstage').textContent=stg[0]; $('rstage').className='stage '+stg[1];
   $('rlbl').textContent=`${sel.l} · 비슷한 매출대 자사몰과 비교하면`;
   if(good){
     $('rbig').innerHTML='<small>동종보다 월 약</small> <span class="num" id="vAmt">0</span><small>만원 아낌</small>';
@@ -577,7 +586,7 @@ function toResult(){
   $('disc').textContent = (rev<5_000_000||rev>300_000_000)
     ? '입력하신 매출 구간은 표본이 상대적으로 적어 참고용 성격이 강합니다. 본 진단은 동종 규모대 벤치마크 기반 추정치이며 실제 성과와 다를 수 있고, 투자·수익을 보장하지 않습니다.'
     : '본 진단은 입력하신 값과 동종 규모대 벤치마크에 기반한 추정치이며, 실제 성과와 다를 수 있습니다. 투자·수익을 보장하지 않으며 참고 목적의 자료입니다.';
-  window.__card={ good, cat: sel.l, amt: excessMan,
+  window.__card={ good, cat: sel.l, amt: excessMan, stage: stg[0], tone: stg[1],
     rb:(d.rb*100).toFixed(0), mine:(d.r*100).toFixed(1) };
   $('input').style.display='none';
   const rs=$('result'); rs.classList.add('on');
@@ -622,6 +631,12 @@ function buildCard(){
   x.fillStyle='#fff'; x.font='900 46px '+CARD_FONT; x.textAlign='center'; x.fillText('K',130,148);
   x.fillStyle='#132019'; x.textAlign='left'; x.font='800 44px '+CARD_FONT; x.fillText('킵그로우',188,148);
   const boxBad=!c.good;
+  // 결과 등급 배지 (우상단, 공유 페이로드)
+  const tcol=c.tone==='bad'?['#f0563a','#fff']:c.tone==='mid'?['#fdece8','#c23c24']:['#e7f6ef','#0b7a55'];
+  x.font='800 30px '+CARD_FONT; x.textAlign='left';
+  const _pw=x.measureText(c.stage).width+52, _px=990-_pw;
+  x.fillStyle=tcol[0]; rrect(x,_px,106,_pw,54,27); x.fill();
+  x.fillStyle=tcol[1]; x.fillText(c.stage,_px+26,143);
   // 라벨
   x.fillStyle='#7c9188'; x.font='600 32px '+CARD_FONT; x.textAlign='left'; x.fillText('무료 광고비 진단 결과',90,250);
   // 서브
@@ -650,7 +665,7 @@ $('share').onclick=()=>{
   const cv=buildCard(); if(!cv){toast('결과를 먼저 확인해주세요');return;}
   cv.toBlob(async b=>{
     const file=new File([b],'킵그로우-진단결과.png',{type:'image/png'});
-    const txt=`내 자사몰 광고 효율 ${window.__card.p} … 킵그로우 무료 진단`;
+    const txt=`내 자사몰 광고비 진단: ${window.__card.stage} … 킵그로우 무료 진단`;
     try{ if(navigator.canShare&&navigator.canShare({files:[file]})){ await navigator.share({files:[file],text:txt}); return; } }catch(e){}
     const url=URL.createObjectURL(b); const a=document.createElement('a');
     a.href=url; a.download='킵그로우-진단결과.png'; a.click();

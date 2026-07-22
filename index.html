@@ -264,8 +264,6 @@
   .assure{margin:14px 22px 0;font-size:12.5px;color:var(--green-deep);background:var(--green-soft);border-radius:11px;
     padding:12px 14px;font-weight:700;text-align:center;line-height:1.55}
   .assure b{font-weight:800}
-  .share{margin:14px auto 0;display:block;font-size:13px;color:var(--ink-faint);font-weight:600;
-    border:1px solid var(--line);border-radius:20px;padding:8px 16px}
 
   /* source badges */
   .sources{margin:22px 22px 0;display:flex;flex-direction:column;gap:8px}
@@ -436,7 +434,6 @@
     </div>
     <div class="assure"><b>여기서 신청하면 두 달 무료</b> · 설치도 <b>저희가 대신</b> (당일~영업일 2일)</div>
     <button class="subcta" id="cta2">궁금한 건 카톡으로 물어보기</button>
-    <button class="share" id="share">📷 결과 이미지 저장 · 공유하기</button>
 
     <details class="srcfold"><summary>데이터 출처·근거 보기</summary>
     <div class="sources">
@@ -618,66 +615,9 @@ function ctaTarget(){
 }
 $('cta1').onclick=()=>{location.href=ctaTarget();};
 $('cta2').onclick=()=>{location.href=KAKAO_URL;};
-// ==== 공유 이미지 카드 (Canvas, 외부 의존 없음) ====
-const DIAG_URL='keepgrow-jindan.vercel.app';   // 배포 주소(커스텀 도메인 생기면 교체)
 const APP_CTA='https://app.keepgrow.com/products/category/57';  // 파트너 링크 최종 랜딩(?partner= 붙임)
 const LANDING_URL='https://bit.ly/3RlcoOX';     // 파트너 파라미터 없을 때 기본(A/B 클릭추적)
 const KAKAO_URL='https://pf.kakao.com/_fVBgT/chat';       // 킵그로우 카톡 상담
-const CARD_FONT="'Pretendard','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif";
-function rrect(x,X,Y,W,H,R){x.beginPath();x.moveTo(X+R,Y);x.arcTo(X+W,Y,X+W,Y+H,R);
-  x.arcTo(X+W,Y+H,X,Y+H,R);x.arcTo(X,Y+H,X,Y,R);x.arcTo(X,Y,X+W,Y,R);x.closePath();}
-function buildCard(){
-  const c=window.__card; if(!c) return null;
-  const cv=document.createElement('canvas'); cv.width=1080; cv.height=1350;
-  const x=cv.getContext('2d');
-  x.fillStyle='#f4f7f4'; x.fillRect(0,0,1080,1350);
-  x.textBaseline='alphabetic';
-  // 로고
-  x.fillStyle='#12b981'; rrect(x,90,90,80,80,22); x.fill();
-  x.fillStyle='#fff'; x.font='900 46px '+CARD_FONT; x.textAlign='center'; x.fillText('K',130,148);
-  x.fillStyle='#132019'; x.textAlign='left'; x.font='800 44px '+CARD_FONT; x.fillText('킵그로우',188,148);
-  const boxBad=!c.good;
-  // 결과 등급 배지 (우상단, 공유 페이로드)
-  const tcol=c.tone==='bad'?['#f0563a','#fff']:c.tone==='mid'?['#fdece8','#c23c24']:['#e7f6ef','#0b7a55'];
-  x.font='800 30px '+CARD_FONT; x.textAlign='left';
-  const _pw=x.measureText(c.stage).width+52, _px=990-_pw;
-  x.fillStyle=tcol[0]; rrect(x,_px,106,_pw,54,27); x.fill();
-  x.fillStyle=tcol[1]; x.fillText(c.stage,_px+26,143);
-  // 라벨
-  x.fillStyle='#7c9188'; x.font='600 32px '+CARD_FONT; x.textAlign='left'; x.fillText('무료 광고비 진단 결과',90,250);
-  // 서브
-  x.fillStyle='#41564c'; x.font='700 36px '+CARD_FONT; x.fillText(`같은 ${c.cat} 자사몰과 비교하면`,90,330);
-  // 큰 판정 — 돈 중심
-  x.fillStyle=boxBad?'#f0563a':'#0b7a55';
-  x.font='800 42px '+CARD_FONT; x.fillText(boxBad?'매달 약':'광고비 월 약',90,420);
-  x.font='900 150px '+CARD_FONT; x.fillText(`${c.amt.toLocaleString()}만원`,86,560);
-  x.font='800 40px '+CARD_FONT; x.fillText(boxBad?'매출로 안 돌아오는 중':'아끼는 중 (효율적)',90,620);
-  // 비율 비교 박스
-  x.fillStyle=boxBad?'#fdece8':'#e7f6ef'; rrect(x,90,660,900,105,24); x.fill();
-  x.fillStyle=boxBad?'#c23c24':'#0b7a55'; x.font='800 36px '+CARD_FONT; x.textAlign='center';
-  x.fillText(`같은 업종 광고비율 ${c.rb}%  ·  당신 ${c.mine}%`,540,725);
-  // 친구 증가 박스 (초록, 실측)
-  x.fillStyle='#12b981'; rrect(x,90,800,900,285,24); x.fill();
-  x.fillStyle='#eafff6'; x.font='800 34px '+CARD_FONT; x.fillText('1초 회원가입 도입 자사몰은',540,882);
-  x.fillStyle='#fff'; x.font='900 84px '+CARD_FONT; x.fillText('카카오 친구 +214명',540,985);
-  x.fillStyle='#d6f5e8'; x.font='700 31px '+CARD_FONT; x.fillText('도입 3개월 · 369곳 실측 · 91.6%가 증가',540,1050);
-  // CTA 바
-  x.fillStyle='#132019'; rrect(x,90,1140,900,125,22); x.fill();
-  x.fillStyle='#fff'; x.font='800 40px '+CARD_FONT; x.fillText('나도 30초 무료 진단 →',540,1208);
-  x.fillStyle='#7fe7bf'; x.font='700 30px '+CARD_FONT; x.fillText(DIAG_URL,540,1310);
-  return cv;
-}
-$('share').onclick=()=>{
-  const cv=buildCard(); if(!cv){toast('결과를 먼저 확인해주세요');return;}
-  cv.toBlob(async b=>{
-    const file=new File([b],'킵그로우-진단결과.png',{type:'image/png'});
-    const txt=`내 자사몰 광고비 진단: ${window.__card.stage} … 킵그로우 무료 진단`;
-    try{ if(navigator.canShare&&navigator.canShare({files:[file]})){ await navigator.share({files:[file],text:txt}); return; } }catch(e){}
-    const url=URL.createObjectURL(b); const a=document.createElement('a');
-    a.href=url; a.download='킵그로우-진단결과.png'; a.click();
-    setTimeout(()=>URL.revokeObjectURL(url),1000); toast('결과 이미지를 저장했어요');
-  },'image/png');
-};
 
 // theme toggle
 const root=document.documentElement;

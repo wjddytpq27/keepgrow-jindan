@@ -611,11 +611,17 @@ $('back').onclick=()=>{$('result').classList.remove('on');$('input').style.displ
   window.scrollTo({top:0});};
 function toast(m){const t=$('toast');t.textContent=m;t.classList.add('on');
   clearTimeout(window.__tt);window.__tt=setTimeout(()=>t.classList.remove('on'),2200);}
-$('cta1').onclick=()=>{location.href=LANDING_URL;};
+// URL에 ?partner=<key>가 있으면 그 파트너에게 귀속되는 앱 링크로, 없으면 기본 bit.ly로(하위호환)
+function ctaTarget(){
+  const p=new URLSearchParams(location.search).get('partner');
+  return p ? APP_CTA+'?partner='+encodeURIComponent(p) : LANDING_URL;
+}
+$('cta1').onclick=()=>{location.href=ctaTarget();};
 $('cta2').onclick=()=>{location.href=KAKAO_URL;};
 // ==== 공유 이미지 카드 (Canvas, 외부 의존 없음) ====
 const DIAG_URL='keepgrow-jindan.vercel.app';   // 배포 주소(커스텀 도메인 생기면 교체)
-const LANDING_URL='https://bit.ly/3RlcoOX';     // 광고효율 진단기 신청 랜딩
+const APP_CTA='https://app.keepgrow.com/products/category/57';  // 파트너 링크 최종 랜딩(?partner= 붙임)
+const LANDING_URL='https://bit.ly/3RlcoOX';     // 파트너 파라미터 없을 때 기본(A/B 클릭추적)
 const KAKAO_URL='https://pf.kakao.com/_fVBgT/chat';       // 킵그로우 카톡 상담
 const CARD_FONT="'Pretendard','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif";
 function rrect(x,X,Y,W,H,R){x.beginPath();x.moveTo(X+R,Y);x.arcTo(X+W,Y,X+W,Y+H,R);
